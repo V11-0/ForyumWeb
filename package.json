@@ -1,0 +1,29 @@
+{
+  "name": "foryum-web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "serve": "vite preview",
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mdi/font": "6.7.96",
+    "roboto-fontface": "0.10.0",
+    "vue": "^3.2.36",
+    "vuetify": "^3.0.0-beta.2",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "@types/webfontloader": "^1.6.34",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vuetify/vite-plugin": "^1.0.0-alpha.11",
+    "typescript": "^4.7.2",
+    "vite": "^2.9.9",
+    "vite-plugin-vuetify": "1.0.0-alpha.11",
+    "vue-cli-plugin-vuetify": "~2.5.0",
+    "vue-tsc": "^0.34.16",
+    "webpack-plugin-vuetify": "2.0.0-alpha.10"
+  }
+}
