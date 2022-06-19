@@ -10,16 +10,18 @@
   },
   "dependencies": {
     "@mdi/font": "6.7.96",
+    "pinia": "^2.0.14",
     "roboto-fontface": "0.10.0",
     "vue": "^3.2.37",
+    "vue-router": "^4.0.16",
     "vuetify": "^3.0.0-beta.4",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@types/webfontloader": "^1.6.34",
     "@vitejs/plugin-vue": "^2.3.3",
-    "@vuetify/vite-plugin": "^1.0.0-alpha.11",
-    "typescript": "^4.7.3",
+    "@vuetify/vite-plugin": "1.0.0-alpha.11",
+    "typescript": "^4.7.4",
     "vite": "^2.9.12",
     "vite-plugin-vuetify": "1.0.0-alpha.12",
     "vue-cli-plugin-vuetify": "~2.5.1",

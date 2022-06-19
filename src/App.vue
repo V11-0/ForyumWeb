@@ -1,26 +1,29 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+	<v-app>
+
+		<BaseAppBar />
+
+		<v-main>
+			<router-view></router-view>
+		</v-main>
+	</v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import BaseAppBar from './components/base/BaseAppBar.vue'
 
 export default defineComponent({
-  name: 'App',
+	name: 'App',
 
-  components: {
-    HelloWorld,
-  },
+	components: {
+		BaseAppBar
+	},
 
-  data () {
-    return {
-      //
-    }
-  },
+	data() {
+		return {
+			//
+		}
+	},
 })
 </script>
