@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar color="indigo darken-4">
+    <v-app-bar color="indigo darken-4" app>
         <v-app-bar-title>Foryum</v-app-bar-title>
     </v-app-bar>
 </template>

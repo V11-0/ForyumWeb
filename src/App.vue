@@ -6,24 +6,12 @@
 		<v-main>
 			<router-view></router-view>
 		</v-main>
+
+		<BaseFooter />
 	</v-app>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import BaseAppBar from './components/base/BaseAppBar.vue'
-
-export default defineComponent({
-	name: 'App',
-
-	components: {
-		BaseAppBar
-	},
-
-	data() {
-		return {
-			//
-		}
-	},
-})
+import BaseFooter from './components/base/BaseFooter.vue'
 </script>
