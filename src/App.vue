@@ -1,17 +1,26 @@
 <template>
-	<v-app>
+  <v-app>
+    <BaseAppBar />
 
-		<BaseAppBar />
+    <v-main>
+      <router-view></router-view>
+    </v-main>
 
-		<v-main>
-			<router-view></router-view>
-		</v-main>
-
-		<BaseFooter />
-	</v-app>
+    <BaseFooter />
+  </v-app>
 </template>
 
-<script setup lang="ts">
-import BaseAppBar from './components/base/BaseAppBar.vue'
-import BaseFooter from './components/base/BaseFooter.vue'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+import BaseAppBar from '@/components/base/BaseAppBar.vue'
+import BaseFooter from '@/components/base/BaseFooter.vue'
+
+@Component({
+  components: {
+    BaseAppBar,
+    BaseFooter
+  }
+})
+export default class App extends Vue {}
 </script>

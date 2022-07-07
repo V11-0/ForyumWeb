@@ -1,5 +1,5 @@
 <template>
-    <v-footer class="bg-indigo-lighten-1 text-white text-center d-flex flex-column" app>
+    <v-footer class="text-white text-center d-flex flex-column" color="indigo lighten-1" app>
         <div>
 
         </div>
@@ -16,5 +16,11 @@
     </v-footer>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class BaseFooter extends Vue {
+
+}
 </script>

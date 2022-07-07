@@ -1,18 +1,14 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import vuetify from './plugins/vuetify'
 
-import App from './App.vue';
-import vuetify from './plugins/vuetify';
-import { loadFonts } from './plugins/webfontloader';
+Vue.config.productionTip = false
 
-import router from './router/Router';
-
-const pinia = createPinia();
-
-loadFonts();
-
-createApp(App)
-  .use(vuetify)
-  .use(router)
-  .use(pinia)
-  .mount('#app');
+new Vue({
+  router,
+  store,
+  vuetify,
+  render: h => h(App)
+}).$mount('#app')
