@@ -64,7 +64,7 @@
             filled
           />
 
-          <v-alert v-model="showFormAlert" text type="error">
+          <v-alert v-model="showFormAlert" text :type="alertType">
             {{ alertMessage }}
           </v-alert>
 
@@ -134,6 +134,7 @@ export default class SignUpCard extends Vue {
 
   showFormAlert = false
   alertMessage = ''
+  alertType = 'error'
 
   async created (): Promise<void> {
     const resp = await axiosInstance.get(
@@ -160,6 +161,11 @@ export default class SignUpCard extends Vue {
 
       try {
         await UserApi.createUser(user)
+        this.typedForm.reset()
+
+        this.alertMessage = 'Usuário criado, agora faça o login'
+        this.alertType = 'success'
+        this.showFormAlert = true
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           // Conflict
@@ -167,6 +173,7 @@ export default class SignUpCard extends Vue {
             const data = error.response.data as Array<ValidationError>
 
             this.alertMessage = data.map(ve => ve.error).join(' | ')
+            this.alertType = 'error'
             this.showFormAlert = true
           }
         }
@@ -176,8 +183,8 @@ export default class SignUpCard extends Vue {
     this.uiLoading = false
   }
 
-  get typedForm (): Vue & { validate(): boolean } {
-    return this.$refs.formRef as Vue & { validate(): boolean }
+  get typedForm (): Vue & { validate(): boolean, reset(): void } {
+    return this.$refs.formRef as Vue & { validate(): boolean, reset(): void }
   }
 
   checkPassword (): void {
