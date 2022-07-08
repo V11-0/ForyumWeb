@@ -167,6 +167,10 @@ export default class SignUpCard extends Vue {
         this.alertType = 'success'
         this.showFormAlert = true
       } catch (error: unknown) {
+        this.alertMessage = 'Ocorreu um erro ao criar a conta'
+        this.alertType = 'error'
+        this.showFormAlert = true
+
         if (axios.isAxiosError(error)) {
           // Conflict
           if (error.response?.status === 409) {

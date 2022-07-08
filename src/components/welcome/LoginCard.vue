@@ -16,6 +16,7 @@
             prepend-inner-icon="mdi-account"
             required
             filled
+            :rules="requiredRule"
           />
 
           <v-text-field
@@ -26,9 +27,16 @@
             prepend-inner-icon="mdi-form-textbox-password"
             required
             filled
+            :rules="requiredRule"
           />
 
-          <v-btn color="success" @click="onSubmit">Entrar</v-btn>
+          <v-alert v-model="alertModel" text :type="alertType">
+            {{ alertMessage }}
+          </v-alert>
+
+          <v-btn color="success" @click="onSubmit" :loading="loading"
+            >Entrar</v-btn
+          >
         </v-form>
       </div>
     </template>
@@ -36,7 +44,11 @@
 </template>
 
 <script lang="ts">
+import UserApi from '@/api/UserApi'
+import UserModule from '@/store/modules/UserModule'
+import axios from 'axios'
 import { Vue, Component } from 'vue-property-decorator'
+import { getModule } from 'vuex-module-decorators'
 
 import ExpandableCard from '../common/ExpandableCard.vue'
 
@@ -46,15 +58,44 @@ import ExpandableCard from '../common/ExpandableCard.vue'
   }
 })
 export default class LoginCard extends Vue {
-  formValid = false;
+  userModule = getModule(UserModule, this.$store)
 
-  userModel = '';
-  passwordModel = '';
+  formValid = false
 
-  onSubmit (): void {
+  userModel = ''
+  passwordModel = ''
+
+  requiredRule = [(v: string) => !!v || 'Não pode ser vazio']
+
+  alertMessage = ''
+  alertType = 'error'
+  alertModel = false
+
+  loading = false
+
+  async onSubmit (): Promise<void> {
+    this.loading = true
+    this.alertModel = false
+
     if (this.typedForm.validate()) {
-      console.log('is valid')
+      try {
+        const session = await UserApi.login(this.userModel, this.passwordModel)
+        this.userModule.setSession(session)
+        this.$router.push('/')
+      } catch (error: unknown) {
+        this.alertMessage = 'Ocorreu um erro ao fazer o login'
+        this.alertModel = true
+
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            this.alertMessage = 'Usuário ou senha incorretos'
+            this.alertModel = true
+          }
+        }
+      }
     }
+
+    this.loading = false
   }
 
   get typedForm (): Vue & { validate(): boolean } {

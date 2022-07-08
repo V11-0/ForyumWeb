@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-btn to="/welcome" color="primary"> Fazer Login </v-btn>
+    <h1 class="text-h1">Página Inicial</h1>
   </v-container>
 </template>
 
@@ -8,5 +8,9 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  created (): void {
+    // TODO: Obtain Posts
+  }
+}
 </script>
