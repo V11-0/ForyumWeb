@@ -29,4 +29,8 @@ export default class UserApi {
     const resp = await axios.get('/User', getAuthHeader(token))
     return resp.data
   }
+
+  public static async logout (token: string): Promise<void> {
+    await axios.delete('/User/Logout', getAuthHeader(token))
+  }
 }

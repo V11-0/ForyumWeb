@@ -5,15 +5,15 @@ import Session from './Session'
 import Vote from './Vote'
 
 export default interface User extends Entity {
-  Username: string
-  Email: string
-  Password: string
-  Country: string
-  Bio?: string
+  username: string
+  email: string
+  password: string
+  country: string
+  bio?: string
 
-  Posts?: Array<Post>
-  Communities?: Array<Community>
-  CreatedCommunities?: Array<Community>
-  Votes?: Array<Vote>
-  Sessions?: Array<Session>
+  posts?: Array<Post>
+  communities?: Array<Community>
+  createdCommunities?: Array<Community>
+  votes?: Array<Vote>
+  sessions?: Array<Session>
 }

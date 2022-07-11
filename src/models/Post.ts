@@ -4,16 +4,16 @@ import User from './User'
 import Vote from './Vote'
 
 export default interface Post extends Entity {
-  Title: string
-  Text?: string
+  title: string
+  text?: string
 
-  Medias?: Array<PostMedia>
+  medias?: Array<PostMedia>
 
-  CreatorUserId: string
-  CreatorUser?: User
+  creatorUserId: string
+  creatorUser?: User
 
-  CommunityId: string
-  Community: object
+  communityId: string
+  community: object
 
-  Votes?: Array<Vote>
+  votes?: Array<Vote>
 }

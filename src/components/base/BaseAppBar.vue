@@ -5,32 +5,23 @@
 
     <v-spacer />
 
-    <div v-if="userModule.hasSession">
-      <!-- <v-select dense :items="userModule.user?.Communities" item-text="Name" /> -->
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-
-      <!-- <div>Está logado</div> -->
+    <div v-if="userModule.hasUser">
+      <BaseProfileMenu />
     </div>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import UserModule from '@/store/modules/UserModule'
 import { Vue, Component } from 'vue-property-decorator'
 import { getModule } from 'vuex-module-decorators'
+import UserModule from '@/store/modules/UserModule'
+import BaseProfileMenu from '@/components/base/BaseProfileMenu.vue'
 
-@Component
+@Component({
+  components: {
+    BaseProfileMenu
+  }
+})
 export default class BaseAppBar extends Vue {
   userModule = getModule(UserModule, this.$store)
 }

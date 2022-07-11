@@ -7,9 +7,9 @@ export enum MediaType {
 }
 
 export default interface PostMedia extends Entity {
-  Type: MediaType
-  Url: string
+  type: MediaType
+  url: string
 
-  PostId: number
-  Post: Post
+  postId: number
+  post: Post
 }

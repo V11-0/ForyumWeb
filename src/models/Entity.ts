@@ -1,4 +1,4 @@
 export default interface Entity {
-    Id: number;
-    DateCreated: string;
+    id: number;
+    dateCreated: string;
 }

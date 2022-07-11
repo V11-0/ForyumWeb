@@ -3,12 +3,12 @@ import Post from './Post'
 import User from './User'
 
 export default interface Community extends Entity {
-  Name: string
-  Description?: string
+  name: string
+  description?: string
 
-  Posts?: Array<Post>
-  Users?: Array<User>
+  posts?: Array<Post>
+  users?: Array<User>
 
-  CreatorUserId: number
-  CreatorUser: User
+  creatorUserId: number
+  creatorUser: User
 }

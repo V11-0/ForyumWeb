@@ -8,11 +8,11 @@ export enum VoteType {
 }
 
 export default interface Vote extends Entity {
-  VoteType: VoteType
+  voteType: VoteType
 
-  UserId: number
-  User: User
+  userId: number
+  user: User
 
-  PostId: number
-  Post: Post
+  postId: number
+  post: Post
 }

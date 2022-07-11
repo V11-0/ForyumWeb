@@ -8,16 +8,20 @@ export default class UserModule extends VuexModule {
   user: User | null = null;
 
   @Mutation
-  setSession (session: Session) {
+  setSession (session: Session | null) {
     this.session = session
   }
 
   @Mutation
-  setUser (user: User) {
+  setUser (user: User | null) {
     this.user = user
   }
 
   get hasSession (): boolean {
     return this.session != null
+  }
+
+  get hasUser (): boolean {
+    return this.user != null
   }
 }
