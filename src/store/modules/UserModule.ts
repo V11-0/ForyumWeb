@@ -24,4 +24,8 @@ export default class UserModule extends VuexModule {
   get hasUser (): boolean {
     return this.user != null
   }
+
+  get token (): string {
+    return this.session!.token
+  }
 }

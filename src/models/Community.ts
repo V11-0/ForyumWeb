@@ -9,6 +9,11 @@ export default interface Community extends Entity {
   posts?: Array<Post>
   users?: Array<User>
 
-  creatorUserId: number
-  creatorUser: User
+  creatorUserId?: number
+  creatorUser?: User
+
+  userCount?: number;
+
+  // properties for ui
+  joined?: boolean
 }
