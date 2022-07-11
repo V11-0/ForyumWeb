@@ -15,8 +15,6 @@
 
 <script lang="ts">
 import UserApi from '@/api/UserApi'
-import CommunityApi from '@/api/CommunityApi'
-import Community from '@/models/Community'
 import UserModule from '@/store/modules/UserModule'
 import RecommendedCommunities from '@/components/home/RecommendedCommunities.vue'
 import { Vue, Component } from 'vue-property-decorator'
