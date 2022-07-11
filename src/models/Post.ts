@@ -1,19 +1,19 @@
-import Entity from "./Entity";
-import PostMedia from "./PostMedia";
-import User from "./User";
-import Vote from "./Vote";
+import Entity from './Entity'
+import PostMedia from './PostMedia'
+import User from './User'
+import Vote from './Vote'
 
 export default interface Post extends Entity {
-    Title: string;
-    Text?: string;
+  Title: string
+  Text?: string
 
-    Medias?: Array<PostMedia>;
+  Medias?: Array<PostMedia>
 
-    CreatorUserId: string;
-    CreatorUser?: User
+  CreatorUserId: string
+  CreatorUser?: User
 
-    CommunityId: string;
-    Community: object
+  CommunityId: string
+  Community: object
 
-    Votes?: Array<Vote>;
+  Votes?: Array<Vote>
 }

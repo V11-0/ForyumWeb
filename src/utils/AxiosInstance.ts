@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5139/api/',
@@ -8,3 +8,7 @@ const axiosInstance = axios.create({
 // TODO Logoff in case of 401 response
 
 export default axiosInstance
+
+export function getAuthHeader (token: string) {
+  return { headers: { Authorization: `Bearer ${token}` } }
+}
