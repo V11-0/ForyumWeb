@@ -5,8 +5,11 @@
         <RecommendedCommunities />
       </v-col>
       <v-col cols="8">
-        <!-- TODO: Postagens ou aviso de sem posts -->
-        lorem ipsum
+        <CreatePostButton />
+
+        <div>
+            lorem ipsum dolor sit amet
+        </div>
       </v-col>
       <v-col cols="2"> lorem ipsum </v-col>
     </v-row>
@@ -17,12 +20,14 @@
 import UserApi from '@/api/UserApi'
 import UserModule from '@/store/modules/UserModule'
 import RecommendedCommunities from '@/components/home/RecommendedCommunities.vue'
+import CreatePostButton from '@/components/common/CreatePostButton.vue'
 import { Vue, Component } from 'vue-property-decorator'
 import { getModule } from 'vuex-module-decorators'
 
 @Component({
   components: {
-    RecommendedCommunities
+    RecommendedCommunities,
+    CreatePostButton
   }
 })
 export default class HomeView extends Vue {

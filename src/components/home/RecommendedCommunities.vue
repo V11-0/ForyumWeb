@@ -71,6 +71,7 @@ export default class RecommendedCommunities extends Vue {
 
     if (community) {
       this.$set(community, 'joined', true)
+      this.userModule.addCommunity(community)
     }
   }
 }

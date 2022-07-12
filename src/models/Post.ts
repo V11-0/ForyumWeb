@@ -9,10 +9,10 @@ export default interface Post extends Entity {
 
   medias?: Array<PostMedia>
 
-  creatorUserId: string
+  creatorUserId: number
   creatorUser?: User
 
-  communityId: string
+  communityId: number
   community: object
 
   votes?: Array<Vote>
