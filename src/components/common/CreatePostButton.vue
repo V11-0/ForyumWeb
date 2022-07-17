@@ -95,11 +95,15 @@ export default class CreatePostButton extends Vue {
   }
 
   get communities (): Array<Community> {
-    return this.userModule.user!.communities!
+    if (this.userModule.user) {
+      return this.userModule.user.communities!
+    }
+
+    return []
   }
 
   typedForm (): Vue & { validate(): boolean; reset(): void } {
-    return this.$refs.formRef as Vue & { validate(): boolean, reset(): void }
+    return this.$refs.formRef as Vue & { validate(): boolean; reset(): void }
   }
 }
 </script>
