@@ -1,4 +1,5 @@
 import { PostFeedDTO } from '@/models/dto/PostDTO'
+import { VoteDTO } from '@/models/dto/VoteDTO'
 import Post from '@/models/Post'
 import { PostOrdenation } from '@/models/PostOrdenation'
 import axiosInstance, { getAuthHeader } from '@/utils/AxiosInstance'
@@ -20,5 +21,16 @@ export default class PostApi {
       params: { orderBy }
     })
     return resp.data
+  }
+
+  public async vote (vote: VoteDTO): Promise<void> {
+    await axiosInstance.post('/Vote', vote, getAuthHeader(this.token))
+  }
+
+  public async deleteVote (postId: number): Promise<void> {
+    await axiosInstance.delete('/Vote', {
+      headers: getAuthHeader(this.token).headers,
+      params: { postId }
+    })
   }
 }

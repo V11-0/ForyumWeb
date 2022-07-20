@@ -7,4 +7,6 @@ export interface PostFeedDTO {
     text?: string;
     creatorUserId: number;
     creatorUsername: string;
+    upvoted: boolean;
+    downvoted: boolean;
 }
