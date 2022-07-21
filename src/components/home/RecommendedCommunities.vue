@@ -45,9 +45,9 @@ export default class RecommendedCommunities extends Vue {
   }
 
   async fetchRecommendedCommunities (): Promise<void> {
-    this.communities = await CommunityApi.fetchRecommendedCommunities(
-      this.userModule.token
-    )
+    const api = new CommunityApi(this.userModule.token)
+    this.communities = await api.fetchRecommendedCommunities()
+
     const userCommunities = this.userModule.user?.communities
 
     if (userCommunities) {
@@ -64,7 +64,9 @@ export default class RecommendedCommunities extends Vue {
   }
 
   async joinCommunity (communityId: number): Promise<void> {
-    await CommunityApi.joinCommunity(this.userModule.token, communityId)
+    const api = new CommunityApi(this.userModule.token)
+    await api.joinCommunity(communityId)
+
     const community = this.communities.find(
       (c) => c.id === communityId
     )

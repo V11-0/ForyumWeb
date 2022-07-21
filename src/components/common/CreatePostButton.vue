@@ -54,7 +54,7 @@ import { getModule } from 'vuex-module-decorators'
 
 @Component
 export default class CreatePostButton extends Vue {
-  @Prop() communityId!: number
+  @Prop() communityId!: string
 
   communityIdModel = 0
   titleModel = ''
@@ -72,7 +72,7 @@ export default class CreatePostButton extends Vue {
 
   created (): void {
     if (this.communityId) {
-      this.communityIdModel = this.communityId
+      this.communityIdModel = +this.communityId
     }
   }
 

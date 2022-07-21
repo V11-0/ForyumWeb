@@ -11,7 +11,9 @@
 
         <PostCard v-for="post in posts" :key="post.id" :post="post" class="mb-4" />
       </v-col>
-      <v-col cols="3"> </v-col>
+      <v-col cols="3">
+        <!-- TODO Search Bar -->
+      </v-col>
     </v-row>
   </v-container>
 </template>

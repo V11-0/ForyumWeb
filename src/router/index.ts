@@ -14,6 +14,12 @@ const routes: Array<RouteConfig> = [
     component: HomeView
   },
   {
+    path: '/community/:communityId',
+    name: 'Community',
+    component: () => import('../views/CommunityView.vue'),
+    props: true
+  },
+  {
     path: '/welcome',
     name: 'Welcome',
     // route level code-splitting

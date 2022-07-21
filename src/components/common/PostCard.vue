@@ -3,8 +3,16 @@
     <v-card-text class="d-flex justify-space-between align-center">
       <div>
         <span class="primary--text">{{ post.creatorUsername }}</span>
-        em
-        <span class="accent--text">{{ post.communityName }}</span>
+        <span v-if="post.communityName">
+          em
+          <a>
+            <span
+              @click="$router.push(`/community/${post.communityId}`)"
+              class="accent--text"
+              >{{ post.communityName }}</span
+            >
+          </a>
+        </span>
       </div>
 
       <div>
