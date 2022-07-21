@@ -29,7 +29,7 @@
         <span
           class="text-body-2"
           :class="upvoted ? 'deep-orange--text' : 'text--secondary'"
-          >TODO</span
+          >{{ upvotes }}</span
         >
       </div>
 
@@ -41,7 +41,7 @@
         <span
           class="text-body-2"
           :class="downvoted ? 'primary--text' : 'text--secondary'"
-          >TODO</span
+          >{{ downvotes }}</span
         >
       </div>
     </v-card-actions>
@@ -62,12 +62,22 @@ export default class PostCard extends Vue {
 
   userModule = getModule(UserModule, this.$store)
 
+  upvotedBeforeLoad = false
+  downvotedBeforeLoad = false
+
   upvoted = false
   downvoted = false
 
   created (): void {
-    this.upvoted = this.post.upvoted
-    this.downvoted = this.post.downvoted
+    if (this.post.userVote === VoteType.Upvote) {
+      this.post.upvoteCount--
+      this.upvotedBeforeLoad = true
+      this.upvoted = true
+    } else if (this.post.userVote === VoteType.Downvote) {
+      this.post.downvoteCount--
+      this.downvotedBeforeLoad = true
+      this.downvoted = true
+    }
   }
 
   async upvote (): Promise<void> {
@@ -94,6 +104,26 @@ export default class PostCard extends Vue {
       this.downvoted = true
       await api.vote({ voteType: VoteType.Downvote, postId: this.post.id })
     }
+  }
+
+  get upvotes (): number {
+    const votes = this.post.upvoteCount
+
+    if (this.upvoted) {
+      return votes + 1
+    }
+
+    return votes
+  }
+
+  get downvotes (): number {
+    const votes = this.post.downvoteCount
+
+    if (this.downvoted) {
+      return votes + 1
+    }
+
+    return votes
   }
 }
 </script>

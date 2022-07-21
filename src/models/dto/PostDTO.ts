@@ -1,3 +1,5 @@
+import { VoteType } from '../Vote'
+
 export interface PostFeedDTO {
     id: number;
     dateCreated: string;
@@ -7,6 +9,7 @@ export interface PostFeedDTO {
     text?: string;
     creatorUserId: number;
     creatorUsername: string;
-    upvoted: boolean;
-    downvoted: boolean;
+    upvoteCount: number;
+    downvoteCount: number;
+    userVote: VoteType
 }
