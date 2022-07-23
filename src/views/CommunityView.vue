@@ -1,37 +1,16 @@
 <template>
   <v-container>
+    <ExpandedPost v-model="isPostExpanded" :post="selectedPost" />
     <v-row>
       <v-col cols="3">
-        <v-card>
-          <v-card-title>{{ community.name }}</v-card-title>
-          <v-card-subtitle>
-            <div>{{ community.userCount }} membros</div>
-            <div>Criado por {{ community.creatorUsername }}</div>
-          </v-card-subtitle>
-          <v-card-text>{{ community.description }}</v-card-text>
-          <v-card-actions class="px-4 pb-4">
-            <span
-              v-if="community.joined"
-              class="text--secondary text-subtitle-2"
-              >Você está nessa comunidade</span
-            >
-            <v-btn v-else color="primary" text @click="joinCommunity()"
-              >Entrar</v-btn
-            >
-          </v-card-actions>
-        </v-card>
+        <CommunityCard :community="community" />
       </v-col>
       <v-col cols="6">
         <CreatePostButton :communityId="communityId" />
 
         <OrderPosts class="mb-6" @onOrderChange="fetchPosts" />
 
-        <PostCard
-          v-for="post in posts"
-          :key="post.id"
-          :post="post"
-          class="mb-4"
-        />
+        <PostCard v-for="post in posts" :key="post.id" :post="post" @expand="expandPost" />
       </v-col>
       <v-col cols="3"> </v-col>
     </v-row>
@@ -50,13 +29,17 @@ import UserModule from '@/store/modules/UserModule'
 import CommunityApi from '@/api/CommunityApi'
 import Community from '@/models/Community'
 import OrderPosts from '@/components/common/OrderPosts.vue'
-import PostCard from '@/components/common/PostCard.vue'
+import PostCard from '@/components/common/post/PostCard.vue'
+import CommunityCard from '@/components/home/CommunityCard.vue'
+import ExpandedPost from '@/components/common/ExpandedPost.vue'
 
 @Component({
   components: {
     CreatePostButton,
     OrderPosts,
-    PostCard
+    PostCard,
+    CommunityCard,
+    ExpandedPost
   }
 })
 export default class CommunityView extends Vue {
@@ -65,6 +48,10 @@ export default class CommunityView extends Vue {
   posts: Array<PostFeedDTO> = []
 
   userModule = getModule(UserModule, this.$store)
+
+  isPostExpanded = false
+
+  selectedPost: PostFeedDTO | null = null
 
   async created (): Promise<void> {
     const api = new CommunityApi(this.userModule.token)
@@ -86,6 +73,11 @@ export default class CommunityView extends Vue {
     const orderBy = PostOrdenation[orderByValue]
     const api = new PostApi(this.userModule.token)
     this.posts = await api.getCommunityPosts(this.communityId, orderBy)
+  }
+
+  expandPost (post: PostFeedDTO): void {
+    this.selectedPost = post
+    this.isPostExpanded = true
   }
 }
 </script>

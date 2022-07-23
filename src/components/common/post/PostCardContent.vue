@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <div>
     <v-card-text class="d-flex justify-space-between align-center">
       <div>
         <span class="primary--text">{{ post.creatorUsername }}</span>
@@ -7,7 +7,7 @@
           em
           <a>
             <span
-              @click="$router.push(`/community/${post.communityId}`)"
+              @click.stop="$router.push(`/community/${post.communityId}`)"
               class="accent--text"
               >{{ post.communityName }}</span
             >
@@ -30,7 +30,7 @@
 
     <v-card-actions>
       <div class="mr-4">
-        <v-btn icon :color="upvoted ? 'deep-orange' : 'grey'" @click="upvote()">
+        <v-btn icon :color="upvoted ? 'deep-orange' : 'grey'" @click.stop="upvote()">
           <v-icon>mdi-arrow-up</v-icon>
         </v-btn>
 
@@ -42,7 +42,7 @@
       </div>
 
       <div>
-        <v-btn icon :color="downvoted ? 'primary' : 'grey'" @click="downvote()">
+        <v-btn icon :color="downvoted ? 'primary' : 'grey'" @click.stop="downvote()">
           <v-icon>mdi-arrow-down</v-icon>
         </v-btn>
 
@@ -53,7 +53,7 @@
         >
       </div>
     </v-card-actions>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -65,7 +65,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import { getModule } from 'vuex-module-decorators'
 
 @Component
-export default class PostCard extends Vue {
+export default class PostCardContent extends Vue {
   @Prop({ required: true }) post!: PostFeedDTO
 
   userModule = getModule(UserModule, this.$store)
@@ -78,11 +78,9 @@ export default class PostCard extends Vue {
 
   created (): void {
     if (this.post.userVote === VoteType.Upvote) {
-      this.post.upvoteCount--
       this.upvotedBeforeLoad = true
       this.upvoted = true
     } else if (this.post.userVote === VoteType.Downvote) {
-      this.post.downvoteCount--
       this.downvotedBeforeLoad = true
       this.downvoted = true
     }
@@ -115,7 +113,11 @@ export default class PostCard extends Vue {
   }
 
   get upvotes (): number {
-    const votes = this.post.upvoteCount
+    let votes = this.post.upvoteCount
+
+    if (this.upvotedBeforeLoad) {
+      votes--
+    }
 
     if (this.upvoted) {
       return votes + 1
@@ -125,7 +127,11 @@ export default class PostCard extends Vue {
   }
 
   get downvotes (): number {
-    const votes = this.post.downvoteCount
+    let votes = this.post.downvoteCount
+
+    if (this.downvotedBeforeLoad) {
+      votes--
+    }
 
     if (this.downvoted) {
       return votes + 1
