@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <ExpandedPost v-model="isPostExpanded" :post="selectedPost" />
     <v-row>
       <v-col cols="3">
         <CommunityCard :community="community" />
@@ -10,7 +9,7 @@
 
         <OrderPosts class="mb-6" @onOrderChange="fetchPosts" />
 
-        <PostCard v-for="post in posts" :key="post.id" :post="post" @expand="expandPost" />
+        <PostList :posts="posts" />
       </v-col>
       <v-col cols="3"> </v-col>
     </v-row>
@@ -29,17 +28,15 @@ import UserModule from '@/store/modules/UserModule'
 import CommunityApi from '@/api/CommunityApi'
 import Community from '@/models/Community'
 import OrderPosts from '@/components/common/OrderPosts.vue'
-import PostCard from '@/components/common/post/PostCard.vue'
+import PostList from '@/components/common/post/PostList.vue'
 import CommunityCard from '@/components/home/CommunityCard.vue'
-import ExpandedPost from '@/components/common/ExpandedPost.vue'
 
 @Component({
   components: {
     CreatePostButton,
     OrderPosts,
-    PostCard,
     CommunityCard,
-    ExpandedPost
+    PostList
   }
 })
 export default class CommunityView extends Vue {
@@ -48,10 +45,6 @@ export default class CommunityView extends Vue {
   posts: Array<PostFeedDTO> = []
 
   userModule = getModule(UserModule, this.$store)
-
-  isPostExpanded = false
-
-  selectedPost: PostFeedDTO | null = null
 
   async created (): Promise<void> {
     const api = new CommunityApi(this.userModule.token)
@@ -64,20 +57,10 @@ export default class CommunityView extends Vue {
     this.$set(this.community, 'joined', !!community)
   }
 
-  async joinCommunity (): Promise<void> {
-    const api = new CommunityApi(this.userModule.token)
-    await api.joinCommunity(this.communityId)
-  }
-
   async fetchPosts (orderByValue: number): Promise<void> {
     const orderBy = PostOrdenation[orderByValue]
     const api = new PostApi(this.userModule.token)
     this.posts = await api.getCommunityPosts(this.communityId, orderBy)
-  }
-
-  expandPost (post: PostFeedDTO): void {
-    this.selectedPost = post
-    this.isPostExpanded = true
   }
 }
 </script>

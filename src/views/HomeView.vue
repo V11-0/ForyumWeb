@@ -1,7 +1,5 @@
 <template>
   <v-container>
-    <ExpandedPost v-model="isPostExpanded" :post="selectedPost" />
-
     <v-row>
       <v-col cols="3">
         <RecommendedCommunities />
@@ -11,10 +9,10 @@
 
         <OrderPosts class="mb-6" @onOrderChange="fetchPosts" />
 
-        <PostCard v-for="post in posts" :key="post.id" :post="post" @expand="expandPost" />
+        <PostList :posts="posts" />
       </v-col>
       <v-col cols="3">
-        <!-- TODO Search Bar -->
+        <SearchBar />
       </v-col>
     </v-row>
   </v-container>
@@ -29,8 +27,8 @@ import UserModule from '@/store/modules/UserModule'
 import RecommendedCommunities from '@/components/home/RecommendedCommunities.vue'
 import CreatePostButton from '@/components/common/CreatePostButton.vue'
 import OrderPosts from '@/components/common/OrderPosts.vue'
-import PostCard from '@/components/common/post/PostCard.vue'
-import ExpandedPost from '@/components/common/ExpandedPost.vue'
+import SearchBar from '@/components/common/SearchBar.vue'
+import PostList from '@/components/common/post/PostList.vue'
 
 import { PostFeedDTO } from '@/models/dto/PostDTO'
 import { PostOrdenation } from '@/models/PostOrdenation'
@@ -41,17 +39,13 @@ import PostApi from '@/api/PostApi'
     RecommendedCommunities,
     CreatePostButton,
     OrderPosts,
-    PostCard,
-    ExpandedPost
+    SearchBar,
+    PostList
   }
 })
 export default class HomeView extends Vue {
   userModule = getModule(UserModule, this.$store)
   posts: Array<PostFeedDTO> = []
-
-  isPostExpanded = false
-
-  selectedPost: PostFeedDTO | null = null
 
   async created (): Promise<void> {
     await this.fetchUser()
@@ -69,11 +63,6 @@ export default class HomeView extends Vue {
     const orderBy = PostOrdenation[orderByValue]
     const api = new PostApi(this.userModule.token)
     this.posts = await api.getFeed(orderBy)
-  }
-
-  expandPost (post: PostFeedDTO): void {
-    this.selectedPost = post
-    this.isPostExpanded = true
   }
 }
 </script>

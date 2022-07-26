@@ -6,6 +6,7 @@
         three-line
         v-for="item in communities"
         :key="item.id"
+        :to="`/community/${item.id}`"
       >
         <v-list-item-content>
           <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -17,9 +18,9 @@
         <v-list-item-action>
           <v-btn
             color="primary"
-            text
-            @click="joinCommunity(item.id)"
+            @click.prevent="joinCommunity(item.id)"
             :disabled="item.joined"
+            text
             >{{ item.joined ? 'Entrou' : 'Entrar' }}</v-btn
           >
         </v-list-item-action>

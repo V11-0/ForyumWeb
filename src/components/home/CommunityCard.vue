@@ -16,11 +16,29 @@
 </template>
 
 <script lang="ts">
-import Community from '@/models/Community'
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import CommunityApi from '@/api/CommunityApi'
+import Community from '@/models/Community'
+import { getModule } from 'vuex-module-decorators'
+import UserModule from '@/store/modules/UserModule'
 
 @Component
 export default class CommunityCard extends Vue {
   @Prop({ required: true }) community!: Community
+
+  userModule = getModule(UserModule, this.$store)
+
+  async joinCommunity (): Promise<void> {
+    const api = new CommunityApi(this.userModule.token)
+    await api.joinCommunity(this.community.id)
+
+    this.community.joined = true
+
+    if (this.community.userCount) {
+      this.community.userCount++
+    } else this.community.userCount = 1
+
+    this.userModule.addCommunity(this.community)
+  }
 }
 </script>
