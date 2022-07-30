@@ -14,7 +14,12 @@
     item-value="id"
     prepend-inner-icon="mdi-search-web"
     return-object
-  />
+  >
+    <template v-slot:item="data">
+      <div class="mr-2" :class="textColor(data.item.type)">{{ data.item.name }}</div>
+      <div class="text-caption text--secondary">{{ type(data.item.type) }}</div>
+    </template>
+  </v-autocomplete>
 </template>
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
@@ -61,6 +66,22 @@ export default class SearchBar extends Vue {
 
     this.recommendations = resp.data
     this.isLoading = false
+  }
+
+  textColor (type: ResultType): string | undefined {
+    if (type === ResultType.User) {
+      return 'primary--text'
+    } else if (type === ResultType.Community) {
+      return 'accent--text'
+    }
+  }
+
+  type (type: ResultType): string | undefined {
+    if (type === ResultType.User) {
+      return 'Usuário'
+    } else if (type === ResultType.Community) {
+      return 'Comunidade'
+    }
   }
 }
 </script>
