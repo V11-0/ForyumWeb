@@ -15,6 +15,8 @@
             {{ user.email }}
           </p>
           <v-divider class="my-3"></v-divider>
+          <v-btn depressed rounded text :to="`/user/${user.id}`"> Meu Perfil </v-btn>
+          <v-divider class="my-3"></v-divider>
           <v-btn depressed rounded text @click="onLogout()"> Desconectar </v-btn>
         </div>
       </v-list-item-content>

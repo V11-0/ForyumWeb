@@ -20,8 +20,8 @@ export default class UserApi {
     return resp.data
   }
 
-  public static async getUser (userId: number) {
-    const resp = await axios.get('/User/', { params: { userId } })
+  public static async getUser (userId: number, token: string) {
+    const resp = await axios.get(`/User/${userId}`, getAuthHeader(token))
     return resp.data
   }
 

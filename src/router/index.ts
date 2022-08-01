@@ -20,6 +20,12 @@ const routes: Array<RouteConfig> = [
     props: true
   },
   {
+    path: '/user/:userId',
+    name: 'User',
+    component: () => import('../views/UserView.vue'),
+    props: true
+  },
+  {
     path: '/welcome',
     name: 'Welcome',
     // route level code-splitting

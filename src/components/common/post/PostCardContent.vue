@@ -2,7 +2,13 @@
   <div>
     <v-card-text class="d-flex justify-space-between align-center">
       <div>
-        <span class="primary--text">{{ post.creatorUsername }}</span>
+        <a>
+          <span
+            @click.stop="$router.push(`/user/${post.creatorUserId}`)"
+            class="primary--text"
+            >{{ post.creatorUsername }}</span
+          >
+        </a>
         <span v-if="post.communityName">
           em
           <a>
@@ -16,7 +22,7 @@
       </div>
 
       <div>
-        <span>{{ post.dateCreated }}</span>
+        <span class="text--secondary">{{ post.dateCreated }}</span>
       </div>
     </v-card-text>
 
@@ -30,7 +36,11 @@
 
     <v-card-actions>
       <div class="mr-4">
-        <v-btn icon :color="upvoted ? 'deep-orange' : 'grey'" @click.stop="upvote()">
+        <v-btn
+          icon
+          :color="upvoted ? 'deep-orange' : 'grey'"
+          @click.stop="upvote()"
+        >
           <v-icon>mdi-arrow-up</v-icon>
         </v-btn>
 
@@ -42,7 +52,11 @@
       </div>
 
       <div>
-        <v-btn icon :color="downvoted ? 'primary' : 'grey'" @click.stop="downvote()">
+        <v-btn
+          icon
+          :color="downvoted ? 'primary' : 'grey'"
+          @click.stop="downvote()"
+        >
           <v-icon>mdi-arrow-down</v-icon>
         </v-btn>
 

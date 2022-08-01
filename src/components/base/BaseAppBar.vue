@@ -1,7 +1,14 @@
+<style scoped>
+.link {
+    cursor: pointer;
+}
+</style>
+
 <template>
   <v-app-bar color="indigo darken-4" app>
     <v-icon class="mr-2">mdi-account-voice</v-icon>
-    <v-app-bar-title> Foryum </v-app-bar-title>
+
+    <v-app-bar-title @click.native="goHome" class="link"> Foryum </v-app-bar-title>
 
     <v-spacer />
 
@@ -24,5 +31,9 @@ import BaseProfileMenu from '@/components/base/BaseProfileMenu.vue'
 })
 export default class BaseAppBar extends Vue {
   userModule = getModule(UserModule, this.$store)
+
+  goHome () {
+    this.$router.push('/')
+  }
 }
 </script>
