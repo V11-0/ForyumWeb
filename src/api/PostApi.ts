@@ -23,17 +23,6 @@ export default class PostApi {
     return resp.data
   }
 
-  public async getCommunityPosts (
-    communityId: number,
-    orderBy: string
-  ): Promise<Array<PostFeedDTO>> {
-    const resp = await axiosInstance.get(`/Community/${communityId}/Post`, {
-      headers: getAuthHeader(this.token).headers,
-      params: { orderBy }
-    })
-    return resp.data
-  }
-
   public async vote (vote: VoteDTO): Promise<void> {
     await axiosInstance.post('/Vote', vote, getAuthHeader(this.token))
   }
