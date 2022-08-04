@@ -4,6 +4,8 @@
       <v-text-field filled v-bind="attrs" v-on="on" label="Postar" readonly />
     </template>
 
+    <DialogCreateCommunity v-model="createCommunityModel" />
+
     <v-card>
       <v-card-title>Criar nova postagem</v-card-title>
       <v-card-text>
@@ -18,6 +20,14 @@
                 item-text="name"
                 :rules="requiredRule"
               />
+              <v-btn
+                outlined
+                small
+                color="primary"
+                @click="openCreateCommunityDialog"
+              >
+                Criar Comunidade
+              </v-btn>
             </v-col>
             <v-col>
               <v-text-field
@@ -45,14 +55,19 @@
   </v-dialog>
 </template>
 <script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { getModule } from 'vuex-module-decorators'
 import Community from '@/models/Community'
 import Post from '@/models/Post'
 import UserModule from '@/store/modules/UserModule'
 import PostApi from '@/api/PostApi'
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import { getModule } from 'vuex-module-decorators'
+import DialogCreateCommunity from '@/components/common/DialogCreateCommunity.vue'
 
-@Component
+@Component({
+  components: {
+    DialogCreateCommunity
+  }
+})
 export default class CreatePostButton extends Vue {
   @Prop() communityId!: string
 
@@ -63,6 +78,7 @@ export default class CreatePostButton extends Vue {
   requiredRule = [(s: string) => !!s || 'Não pode ser vazio']
 
   dialogModel = false
+  createCommunityModel = false
 
   userModule = getModule(UserModule, this.$store)
   api: PostApi = new PostApi(this.userModule.token)
@@ -104,6 +120,10 @@ export default class CreatePostButton extends Vue {
 
   typedForm (): Vue & { validate(): boolean; reset(): void } {
     return this.$refs.formRef as Vue & { validate(): boolean; reset(): void }
+  }
+
+  openCreateCommunityDialog (): void {
+    this.createCommunityModel = true
   }
 }
 </script>

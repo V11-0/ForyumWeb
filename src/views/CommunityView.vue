@@ -52,10 +52,17 @@ export default class CommunityView extends Vue {
       this.posts = this.community.posts
     }
 
+    if (this.community.creatorUserId === this.userModule.user?.id) {
+      this.$set(this.community, 'joined', true)
+    }
+
     const community = this.userModule.user?.communities?.find(
-      (c) => c.name === this.community.name
+      (c) => c.id === +this.communityId
     )
-    this.$set(this.community, 'joined', !!community)
+
+    if (community) {
+      this.$set(this.community, 'joined', true)
+    }
   }
 }
 </script>
