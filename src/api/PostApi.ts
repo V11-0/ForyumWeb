@@ -1,7 +1,7 @@
+import { CommentCreationDTO, CommentDTO } from '@/models/dto/CommentDTO'
 import { PostFeedDTO } from '@/models/dto/PostDTO'
 import { VoteDTO } from '@/models/dto/VoteDTO'
 import Post from '@/models/Post'
-import { PostOrdenation } from '@/models/PostOrdenation'
 import axiosInstance, { getAuthHeader } from '@/utils/AxiosInstance'
 
 export default class PostApi {
@@ -21,6 +21,18 @@ export default class PostApi {
       params: { orderBy }
     })
     return resp.data
+  }
+
+  public async getComments (postId: number): Promise<Array<CommentDTO>> {
+    const resp = await axiosInstance.get(
+      `/Post/${postId}/Comment`,
+      getAuthHeader(this.token)
+    )
+    return resp.data
+  }
+
+  public async createComment (comment: CommentCreationDTO) {
+    await axiosInstance.post('/Post/Comment', comment, getAuthHeader(this.token))
   }
 
   public async vote (vote: VoteDTO): Promise<void> {
